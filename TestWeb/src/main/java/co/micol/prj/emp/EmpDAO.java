@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import co.micol.prj.comm.DAO;
 
 public class EmpDAO extends DAO {
+	
 	//JOBs 전체조회
 	public ArrayList<JobsVO> selectJobs() {
 		ArrayList<JobsVO> list = new ArrayList<JobsVO>();
@@ -28,6 +29,35 @@ public class EmpDAO extends DAO {
 			disconnect();
 		}
 		return list;
+	}
+	
+	//단건조회
+	public EmpVO selectOne(String employeeId) {
+		EmpVO vo = new EmpVO();
+		try {
+			getConnect();
+			String sql = "select * from employees where employee_id=?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, employeeId);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				vo.setEmployeeId(rs.getString("employee_id"));
+				vo.setLastName(rs.getString("last_name"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHireDate(rs.getString("hire_date"));
+				vo.setJobId(rs.getString("job_id"));
+				vo.setDepartmentId(rs.getString("department_id"));
+				
+				
+			
+			}
+			
+		} catch (Exception e){
+			 e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return vo;
 	}
 	
 	// 전체조회
@@ -78,11 +108,7 @@ public class EmpDAO extends DAO {
 		return list;
 	}
 	
-	// 단건조회
-	public EmpVO selectOne(String id) {
-		EmpVO vo = new EmpVO();
-		return vo;
-	}
+	
 	
 	// 등록
 	public int insert(EmpVO vo) { // 값이 여러개면 VO가 편함 // 처리건수 넘어옴
@@ -92,7 +118,8 @@ public class EmpDAO extends DAO {
 			getConnect();
 			String sql = " insert into"
 					   + " employees( employee_id, last_name, email, hire_date, job_id)"
-					   + " values(?, ?, ?, ?, ?)";
+					   + " values((select max(employee_id)+1 from employees),"
+					   + " ?, ?, ?, ?, ?)";
 			// 2.sql 구문준비
 			psmt = conn.prepareStatement(sql);
 			// 3.sql 구문실행
@@ -111,9 +138,27 @@ public class EmpDAO extends DAO {
 	}
 	
 	// 수정
-	
+	public int update(EmpVO vo) {
+		int cnt =0;
+		
+		return cnt;
+	}
 	// 삭제
-	
+	public int delete(String employeeId) {
+		int cnt=0;
+		try {
+			getConnect();
+			String sql = "delete from employees where employee_id = ?";			
+			psmt = conn.prepareStatement(sql);			
+			psmt.setString(1, employeeId);
+			cnt = psmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return cnt;
+	}
 	
 
 }

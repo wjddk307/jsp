@@ -17,6 +17,7 @@
 </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
 <% DeptVO dept = (DeptVO)request.getAttribute("dept"); %>
 	<form name="frm" action="Update" method="post">
 	부서번호<input name="departmentId" value="<%=dept.getDepartmentId()%>">

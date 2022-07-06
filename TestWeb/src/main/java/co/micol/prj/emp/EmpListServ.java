@@ -22,11 +22,14 @@ public class EmpListServ extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//파라미터
+		String id = request.getParameter("departmentId");
 		
-	    EmpDAO dao = new EmpDAO();
-	    
-	    String id = request.getParameter("departmentId");		
+		//DB처리
+	    EmpDAO dao = new EmpDAO();  
 		request.setAttribute("list", dao.selectAll(id));
+		
+		//페이지이동
 		request.getRequestDispatcher("/WEB-INF/jsp/emp/empList.jsp")
 		       .forward(request, response);
 		

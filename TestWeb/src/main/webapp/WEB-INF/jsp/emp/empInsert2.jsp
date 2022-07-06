@@ -3,7 +3,6 @@
 <%@page import="co.micol.prj.emp.JobsVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,10 +72,11 @@ background-color:lemonchiffon;
 		<br>		
 		<label for="jobid">업무번호</label>
 		<select name="jobId">
-	<c:forEach items="jobs" var="job">
-		<option value = "${job.getJobId()}">${job.getJobTitle()}
-	</c:forEach>	      
-	
+	<% ArrayList<JobsVO> list = (ArrayList<JobsVO>)request.getAttribute("jobs"); 
+		for( JobsVO jobs : list) { %> 
+		<option value = "<%=jobs.getJobId()%>">
+		        <%=jobs.getJobTitle()%>
+	<% }  %>
 		</select>
 		<br>
 		<label for="email">이메일</label>

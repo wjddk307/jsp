@@ -73,6 +73,7 @@ public class DeptDAO extends DAO {
 		}
 		return cnt;
 	}
+	
 	//수정
    public int update(DeptVO vo) {
 	   int r = 0;
@@ -93,6 +94,7 @@ public class DeptDAO extends DAO {
 	
 	
 	//삭제
+   
    
 
 }

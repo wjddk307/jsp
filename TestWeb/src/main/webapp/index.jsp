@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
 <div align="center"></div>
 <h1> Welcome to My Home</h1>
 </body>

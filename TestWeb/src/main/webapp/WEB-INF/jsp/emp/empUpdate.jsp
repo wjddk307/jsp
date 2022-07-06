@@ -1,3 +1,4 @@
+<%@page import="co.micol.prj.emp.EmpVO"%>
 <%@page import="co.micol.prj.dept.DeptVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="co.micol.prj.emp.JobsVO"%>
@@ -57,34 +58,46 @@ background-color:lemonchiffon;
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 
+사원등록
+<%
+   EmpVO vo = (EmpVO)request.getAttribute("emp");
+%>
+
 	<form name="frm" action="empInsert" method="post" onsubmit="return validateForm()">
 		<label for="empid">사원번호</label> 
-		<input type="number" name="employeeId" id="empid"><br>
+		<input type="number" name="employeeId" id="empid" value="<%= vo.getEmployeeId()%>"><br>
 		<label for="lastname">이름</label> 
-		<input type="text" name="lastName" id="lastname"><br>
+		<input type="text" name="lastName" id="lastname" value="<%=vo.getLastName()%>"><br>
 		<label>부서번호</label>
 		
-	<% ArrayList<DeptVO> depts = (ArrayList<DeptVO>)request.getAttribute("depts"); 
-		for( DeptVO dept : depts) { 
-		%> 
-		<input type="radio" name="departmentId" value="<%=dept.getDepartmentId()%>">
-		            <%=dept.getDepartmentName()%>
-	<% }  %>
+	<c:forEach items="depts" var="dept">
+		<input type="radio" name="departmentId" value="${dept.getDepartmentId() }" 
+		<c:if test="dept.getDepartmentId() == vo.getDepartmentId()"> checked="checked" </c:if> >
+		            ${dept.getDepartmentName()}
+		</c:forEach> 
 		<br>		
 		<label for="jobid">업무번호</label>
 		<select name="jobId">
-	<c:forEach items="jobs" var="job">
-		<option value = "${job.getJobId()}">${job.getJobTitle()}
-	</c:forEach>	      
+	<% ArrayList<JobsVO> list = (ArrayList<JobsVO>)request.getAttribute("jobs"); 
+		for( JobsVO jobs : list) { %> 
+		<option value = "<%=jobs.getJobId()%>" >	<%=jobs.getJobTitle()%>
 	
+	<% }  %>
 		</select>
 		<br>
 		<label for="email">이메일</label>
-		<input type="text" name="email" id="email"><br>	 
+		<input type="text" name="email" id="email" value="<%=vo.getEmail()%>"><br>	 
 		<label for="hiredate">입사일</label> 
-		<input type="date" name="hireDate" id="hiredate"><br> 
+		<input type="date" name="hireDate" id="hiredate" value="<%=vo.getHireDate().substring(0,10)%>"><br> 
 		<input type="submit" value="입력">
+		<button type="button" onclick="empDelete()">삭제</button>
 	</form>
-
+<script>
+      function empDelete() {
+    	  location.href="empDelete?employeeId=<%vo.getEmployeeId()%>";
+      }
+      document.querySelector("[name=departmentId][value='<%=vo.getDepartmentId()%>']").checked = true;
+      document.getElementsByName("jobId")[0].value = "<%=vo.getJobId()%>";
+</script>
 </body>
 </html>

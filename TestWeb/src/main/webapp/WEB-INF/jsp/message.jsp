@@ -5,10 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/header.jsp" />%>
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
+<script>
+alert('<%=request.getAttribute("msg")%>')
+location.href='empList'
+</script>
 
-메인입니다.
 </body>
 </html>
