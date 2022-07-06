@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>jstl</title>
+<title>empInsert.jsp</title>
 <script>
 function validateForm() {
 	if(frm.employeeId.value == "" ) {
@@ -92,12 +92,12 @@ background-color:lemonchiffon;
 		<input type="submit" value="입력">
 		<button type="button" onclick="empDelete()">삭제</button>
 	</form>
-<script>
-      function empDelete() {
-    	  location.href="empDelete?employeeId=<%vo.getEmployeeId()%>";
-      }
+       <script>
+          function empDelete(){
+	      location.href="empDelete?employeeId=<%=vo.getEmployeeId()%>";
+          }
       document.querySelector("[name=departmentId][value='<%=vo.getDepartmentId()%>']").checked = true;
       document.getElementsByName("jobId")[0].value = "<%=vo.getJobId()%>";
-</script>
+      </script>
 </body>
 </html>

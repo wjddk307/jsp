@@ -15,7 +15,7 @@ public class DeptDAO extends DAO {
 			getConnect();
 			String sql = "select * from departments";
 			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery(sql);
+			rs = psmt.executeQuery();
 			while(rs.next()) {
 				DeptVO vo = new DeptVO();
 				vo.setDepartmentId(rs.getString("department_id"));

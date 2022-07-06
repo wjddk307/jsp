@@ -13,7 +13,7 @@ public class BoardDAO extends DAO{
 		try {
 			
 			getConnect();			
-			String sql = "select * from board";
+			String sql = "select * from board order by hit desc";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);
 			while(rs.next()) {

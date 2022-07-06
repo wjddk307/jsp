@@ -94,8 +94,8 @@ background-color:lemonchiffon;
 		<button type="button" onclick="empDelete()">삭제</button>
 	</form>
 <script>
-      function empDelete() {
-    	  location.href="empDelete?employeeId=<%vo.getEmployeeId()%>";
+      function empDelete(){
+    	  location.href="empDelete?employeeId=<%=vo.getEmployeeId()%>";
       }
       document.querySelector("[name=departmentId][value='<%=vo.getDepartmentId()%>']").checked = true;
       document.getElementsByName("jobId")[0].value = "<%=vo.getJobId()%>";
