@@ -12,13 +12,13 @@ public class EmpDAO extends DAO {
 	public ArrayList<JobsVO> selectJobs() {
 		ArrayList<JobsVO> list = new ArrayList<JobsVO>();
 		try {
-			getConnect();
-			String sql = "select * from jobs order by job_id";
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery(sql);
+			getConnect(); // app와 dbms연결
+			String sql = "select * from jobs order by job_id"; 
+			psmt = conn.prepareStatement(sql); // sql을 dbms로 가져감.
+			rs = psmt.executeQuery(sql); // 돌아온 결과가 resultset  // rs: 한행의 이름이 rs
 			while(rs.next()) {
 				JobsVO vo = new JobsVO();
-				vo.setJobId(rs.getString("job_id"));
+				vo.setJobId(rs.getString("job_id")); // 만약 int이면 rs.getint(a)
 				vo.setJobTitle(rs.getString("job_title"));
 				list.add(vo);
 			}
@@ -47,9 +47,7 @@ public class EmpDAO extends DAO {
 				vo.setHireDate(rs.getString("hire_date"));
 				vo.setJobId(rs.getString("job_id"));
 				vo.setDepartmentId(rs.getString("department_id"));
-				
-				
-			
+	
 			}
 			
 		} catch (Exception e){
@@ -72,7 +70,7 @@ public class EmpDAO extends DAO {
 			String sql = "select * from employees"; // 실행시켜서 결과 받아옴.
 			
 			if(departmentId != null && ! departmentId.isEmpty()) {
-				sql += " where department_id = ? ";
+				sql += " where department_id = ? "; // ?: 외부에서 전달하는 값.
 			}
 			sql += " order by employee_id";
 			
@@ -112,7 +110,7 @@ public class EmpDAO extends DAO {
 	
 	// 등록
 	public int insert(EmpVO vo) { // 값이 여러개면 VO가 편함 // 처리건수 넘어옴
-		int cnt=0;
+		int r=0;
 		try {
 			// 1.cnnect
 			getConnect();
@@ -128,13 +126,13 @@ public class EmpDAO extends DAO {
 			psmt.setString(3, vo.getEmail());
 			psmt.setString(4, vo.getHireDate());
 			psmt.setString(5, vo.getJobId());
-			cnt = psmt.executeUpdate();
+			r = psmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
-		return cnt;
+		return r;
 	}
 	
 	// 수정

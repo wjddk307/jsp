@@ -17,6 +17,8 @@ public class EmpInsertServ extends HttpServlet {
 	// 등록페이지로 이동
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 파라미타
+		
 		// DB조회
 		// jobs, 부서, 사원
 		EmpDAO empDAO = new EmpDAO();
@@ -34,16 +36,16 @@ public class EmpInsertServ extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		// 파라미터를 VO담고
-		String id = request.getParameter("employeeId");
-		String name = request.getParameter("lastName");
+		// 파라미터를 VO 담고
+		//String id = request.getParameter("employeeId");
+		//String name = request.getParameter("lastName");
 		String jobid = request.getParameter("jobId");
 		String email = request.getParameter("email");
 		String hiredate = request.getParameter("hireDate");
 		
 		EmpVO vo = new EmpVO();
-		vo.setEmployeeId(id);
-		vo.setLastName(name);
+		vo.setEmployeeId(request.getParameter("employeeId"));
+		vo.setLastName(request.getParameter("lastName"));
 		vo.setJobId(jobid);
 		vo.setEmail(email);
 		vo.setHireDate(hiredate);
@@ -53,9 +55,9 @@ public class EmpInsertServ extends HttpServlet {
 		int cnt = empDAO.insert(vo);
 		
 		//결과출력
-		//response.getWriter().append(cnt + "건이 등록됨");	
+		response.getWriter().append(cnt + "건이 등록됨");	
 		//request.getRequestDispatcher("empList").forward(request, response);
-		response.sendRedirect("empList"); 
+		//response.sendRedirect("empList"); 
 		
      
 	}
