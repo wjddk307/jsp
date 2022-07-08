@@ -8,12 +8,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:forEach items="${list }" var="m">
-		<tr>
-			<td align="center">${m.memberId }</td>
-			<td align="center">${m.memberName }</td>
-			<td align="center">${m.memberAuthor }</td>
-		</tr>
-</c:forEach>
+	<div align="center">
+		<table border="1">
+			<thead>
+				<th>아이디</th>
+				<th>이름</th>
+				<th>권한</th>
+			</thead>
+			<tbody>
+				<c:forEach items="${list }" var="m">
+					<tr>
+						<td align="center">${m.memberId }</td>
+						<td align="center">${m.memberName }</td>
+						<td align="center">${m.memberAuthor }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
