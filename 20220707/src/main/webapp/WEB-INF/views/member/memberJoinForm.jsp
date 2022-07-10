@@ -64,7 +64,7 @@
 			}
 
 			if (frm.memberPassword.value != frm.password.value) {
-				alert("패스워드가 일피하지 않습니다.");
+				alert("패스워드가 일치하지 않습니다.");
 				frm.memberPassword.value = "";
 				frm.password.value = "";
 				from.memberPassword.foucus();

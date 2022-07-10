@@ -15,7 +15,7 @@ public class MemberLogout implements Command {
 		String name = (String)session.getAttribute("name"); //세션객체에 담겨있는 name 가져온다.
 		request.setAttribute("message", name + "님 정상적으로 로그아웃처리 되었습니다,");
 		session.invalidate(); // 보관하고 있는 세션 완전 삭제
-		return "member/memberLogout";
+		return "member/memberLogout"; 
 	}
 
 }
